@@ -32,7 +32,8 @@ void setup() {
 
   connectWifi();
 
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  initTime(timezone_posix);
+  printCurrentTime();
 
   Serial.println("Finished Setup!");
   Serial.println();

@@ -45,19 +45,35 @@ void deepSleep() {
   esp_deep_sleep_start();
 }
 
+void setTimezone(String timezone){
+  setenv("TZ", timezone.c_str(), 1);  //  adjust the TZ, clock settings are updated to show new local time
+  tzset();
+}
+
+void initTime(String timezone){
+  struct tm timeinfo;
+
+  configTime(0, 0, ntpServer); // connect to ntp server, with 0 TZ offset
+  if(!getLocalTime(&timeinfo)) {
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  setTimezone(timezone);
+}
+
 void printCurrentTime() {
   struct tm currentTime;
   if(!getLocalTime(&currentTime)) {
     Serial.println("Failed to obtain current time");
     return;
   }
-  Serial.println(&currentTime, "%A, %B %d %Y %H:%M:%S");
+  Serial.println(&currentTime, "%A, %B %d %Y %H:%M:%S (%Z %z)");
 }
 
 String getCurrentTimeAsIsoString() {
   
   time_t     now = time(0);
-  struct tm currentTime;
+  struct tm  currentTime;
   char       isoTime[80];
   currentTime = *localtime(&now);
   strftime(isoTime, sizeof(isoTime), "%Y-%m-%dT%H:%M:%S", &currentTime);

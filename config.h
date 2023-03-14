@@ -20,9 +20,8 @@ uint64_t DEEPSLEEP_CALIBRATION_SECONDS = 0; // if deepsleep lasts longer or shor
 #define SOIL_MAX 3450 // value when soil sensor is in air // round to upper, otherwise relative value will overflow
 
 // ntp settings
-const char* ntpServer = myNtpServer; //"pool.ntp.org";
-const long  gmtOffset_sec = 3600; // 0: UTC, 3600: CET
-const int   daylightOffset_sec = 3600; // do not change default offset for DST
+const char* ntpServer = myNtpServer; // default is "pool.ntp.org";
+const String timezone_posix = "CET-1CEST,M3.5.0,M10.5.0/3"; // "Europe/Berlin" // https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv
 
 
 const String serverUrl = myServerUrl;
