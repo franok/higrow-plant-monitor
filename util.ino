@@ -27,7 +27,7 @@ void deepSleep() {
   Serial.println(WiFi.macAddress());
   
   Serial.print("\n"); // empty line
-  uint64_t sleepDurationInSeconds = DEEPSLEEP_SECONDS;
+  uint64_t sleepDurationInSeconds = DEEPSLEEP_SECONDS + DEEPSLEEP_CALIBRATION_SECONDS;
   if (debugEnabled == true) {
     Serial.println("DEBUG mode is active!");
     sleepDurationInSeconds = 10;
